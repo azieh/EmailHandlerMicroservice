@@ -7,6 +7,10 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EmailHandlerCommon\EmailHandlerCommon.csproj" />
+  </ItemGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
