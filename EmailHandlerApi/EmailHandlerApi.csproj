@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EmailHandlerCommon\EmailHandlerCommon.csproj" />
+    <ProjectReference Include="..\EmailHandlerRepository\EmailHandlerRepository.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
