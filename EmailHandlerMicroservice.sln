@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailHandlerApi", "EmailHandlerApi\EmailHandlerApi.csproj", "{AF053262-15F6-40DB-97D8-656AE3E561EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailHandlerApi", "EmailHandlerApi\EmailHandlerApi.csproj", "{AF053262-15F6-40DB-97D8-656AE3E561EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailHandlerUnitTests", "EmailHandlerUnitTests\EmailHandlerUnitTests.csproj", "{2B096F7A-D092-49E2-BDD8-0CEB1F44D92D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{AF053262-15F6-40DB-97D8-656AE3E561EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF053262-15F6-40DB-97D8-656AE3E561EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF053262-15F6-40DB-97D8-656AE3E561EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B096F7A-D092-49E2-BDD8-0CEB1F44D92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B096F7A-D092-49E2-BDD8-0CEB1F44D92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B096F7A-D092-49E2-BDD8-0CEB1F44D92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B096F7A-D092-49E2-BDD8-0CEB1F44D92D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
