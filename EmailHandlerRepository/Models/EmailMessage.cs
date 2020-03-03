@@ -7,8 +7,7 @@ namespace EmailHandlerRepository.Models
     public class EmailMessage
     {
         public Guid Id { get; set; }
-        public List<User> ToRecipients { get; set; }
-        public List<User> CcRecipients { get; set; }
+        public string ToRecipients { get; set; }
         public int Status { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
