@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailHandlerApi", "EmailHandlerApi\EmailHandlerApi.csproj", "{AF053262-15F6-40DB-97D8-656AE3E561EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{AF053262-15F6-40DB-97D8-656AE3E561EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailHandlerUnitTests", "EmailHandlerUnitTests\EmailHandlerUnitTests.csproj", "{2B096F7A-D092-49E2-BDD8-0CEB1F44D92D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{2B096F7A-D092-49E2-BDD8-0CEB1F44D92D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailHandlerCommon", "EmailHandlerCommon\EmailHandlerCommon.csproj", "{35FA36D6-0302-4565-8994-8255AA0D215D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{35FA36D6-0302-4565-8994-8255AA0D215D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailHandlerRepository", "EmailHandlerRepository\EmailHandlerRepository.csproj", "{DCE01563-D7B4-42C3-9C1B-1CF668617873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{DCE01563-D7B4-42C3-9C1B-1CF668617873}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
