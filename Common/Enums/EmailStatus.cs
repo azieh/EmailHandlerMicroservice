@@ -7,6 +7,7 @@ namespace Common.Enums
 {
     public enum EmailStatus
     {
+        None,
         Pending = 0,
         Send = 1
     }

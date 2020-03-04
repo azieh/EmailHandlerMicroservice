@@ -32,14 +32,6 @@ namespace Data.Repository
             return entity.MapToDto();
         }
 
-        public async Task<EmailStatus> GetStatusById(Guid id)
-        {
-            var entity = await _dbContext.Value.EmailMessages.FirstOrDefaultAsync(x => x.Id == id);
-            if (entity is null)
-                throw new KeyNotFoundException(id.ToString());
-            return (EmailStatus)entity.Status;
-        }
-
         public async Task<Guid> InsertMessage(NewEmailMessage newEmailMessage)
         {
             var entity = newEmailMessage.MapFromNewDto();

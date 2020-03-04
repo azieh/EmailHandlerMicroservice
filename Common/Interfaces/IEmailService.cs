@@ -6,11 +6,12 @@ using Common.Models;
 
 namespace Common.Interfaces
 {
-    public interface IEmailMessageRepository
+    public interface IEmailService
     {
-        Task<Guid> InsertMessage(NewEmailMessage emailMessage);
+        Task<Guid> AddToQueue(NewEmailMessage emailMessage);
         Task<List<EmailMessage>> GetAll();
         Task<EmailMessage> GetById(Guid id);
-        void UpdateStatusToSendById(Guid id);
+        Task<EmailStatus> GetStatusById(Guid id);
+        Task SendEmail(Guid id);
     }
 }

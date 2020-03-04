@@ -1,6 +1,4 @@
-﻿using Common.Interfaces;
-using Data;
-using Data.Repository;
+﻿using Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.ProjectSetup

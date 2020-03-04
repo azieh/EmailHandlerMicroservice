@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Common.Enums;
 using Common.Interfaces;
 using Common.Models;
-using Common.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -15,29 +13,22 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class EmailController : ControllerBase
     {
-        private readonly Lazy<IEmailMessageRepository> _emailMessageRepositoryLazy;
+        private readonly Lazy<IEmailService> _emailServiceLazy;
 
-        public EmailController(IEmailMessageRepository emailMessageRepository)
+        public EmailController(IEmailService emailService)
         {
-            if(emailMessageRepository is null)
-                throw new ArgumentNullException(nameof(emailMessageRepository));
+            if(emailService is null)
+                throw new ArgumentNullException(nameof(emailService));
 
-            _emailMessageRepositoryLazy = new Lazy<IEmailMessageRepository>(() => emailMessageRepository);
+            _emailServiceLazy = new Lazy<IEmailService>(() => emailService);
         }
 
         [HttpPost]
         [Route(nameof(PostMessage))]
-        [ProducesResponseType(typeof(NewEmailMessage), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> PostMessage([FromBody]NewEmailMessage emailMessage)
         {
-            if (emailMessage is null)
-                return BadRequest();
-            if (!emailMessage.Sender.IsEmail() || emailMessage.ToRecipients.Any(x => !x.IsEmail()))
-                return ValidationProblem("One of addresses are not valid email format");
-            if (string.IsNullOrEmpty(emailMessage.Subject))
-                return ValidationProblem("Subject cannot be empty");
-
-            var emailId = await _emailMessageRepositoryLazy.Value.InsertMessage(emailMessage);
+            var emailId = await _emailServiceLazy.Value.AddToQueue(emailMessage);
             return Ok(emailId);
         }
 
@@ -54,7 +45,10 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(EmailStatus) ,(int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetMessageStatus([FromQuery]Guid id)
         {
-            var status = await _emailMessageRepositoryLazy.Value.GetStatusById(id);
+            var status = await _emailServiceLazy.Value.GetStatusById(id);
+            if (status == EmailStatus.None)
+                return NotFound();
+
             return Ok(status);
         }
 
@@ -63,7 +57,7 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(List<EmailMessage>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAllMessages()
         {
-            var allEmails = await _emailMessageRepositoryLazy.Value.GetAll();
+            var allEmails = await _emailServiceLazy.Value.GetAll();
             return Ok(allEmails);
         }
     }

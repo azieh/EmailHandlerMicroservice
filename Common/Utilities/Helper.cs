@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Common.Utilities
@@ -30,12 +31,12 @@ namespace Common.Utilities
             }
         }
 
-        public static bool IsEmailList(this object value)
+        public static bool IsEmailList(this IEnumerable value)
         {
             try
             {
                 var list = (IList<string>)value;
-                return !list.Any() || list.Any(x => !x.IsEmail());
+                return !list.Any() || list.All(x => x.IsEmail());
             }
             catch
             {

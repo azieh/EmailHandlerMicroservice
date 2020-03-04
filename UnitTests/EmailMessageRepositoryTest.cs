@@ -1,8 +1,5 @@
 ﻿using System;
-using Api.Controllers;
-using Common.Interfaces;
 using Data.Repository;
-using Moq;
 using NUnit.Framework;
 
 namespace UnitTests
@@ -10,11 +7,9 @@ namespace UnitTests
     [TestFixture]
     public class EmailMessageRepositoryTest
     {
-        private Mock<IEmailMessageRepository> _sut;
         [SetUp]
         public void Setup()
         {
-            _sut = new Mock<IEmailMessageRepository>();
         }
 
         [Test]

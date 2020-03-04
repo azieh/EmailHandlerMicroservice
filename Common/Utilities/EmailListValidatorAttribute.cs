@@ -11,7 +11,10 @@ namespace Common.Utilities
     {
         public override bool IsValid(object value)
         {
-            return value.IsEmailList();
+            var list = value as IEnumerable;
+            if (list == null) return true;
+
+            return list.IsEmailList();
         }
     }
 }
