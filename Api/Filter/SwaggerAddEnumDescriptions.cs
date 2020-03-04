@@ -15,36 +15,25 @@ namespace Api.Filter
             // add enum descriptions to result models
             foreach (var property in swaggerDoc.Components.Schemas.Where(x => x.Value?.Enum?.Count > 0))
             {
-                IList<IOpenApiAny> propertyEnums = property.Value.Enum;
+                var propertyEnums = property.Value.Enum;
                 if (propertyEnums != null && propertyEnums.Count > 0)
-                {
                     property.Value.Description += DescribeEnum(propertyEnums, property.Key);
-                }
             }
 
             // add enum descriptions to input parameters
-            foreach (var pathItem in swaggerDoc.Paths.Values)
-            {
-                DescribeEnumParameters(pathItem.Operations, swaggerDoc);
-            }
+            foreach (var pathItem in swaggerDoc.Paths.Values) DescribeEnumParameters(pathItem.Operations, swaggerDoc);
         }
 
-        private void DescribeEnumParameters(IDictionary<OperationType, OpenApiOperation> operations, OpenApiDocument swaggerDoc)
+        private void DescribeEnumParameters(IDictionary<OperationType, OpenApiOperation> operations,
+            OpenApiDocument swaggerDoc)
         {
             if (operations != null)
-            {
                 foreach (var oper in operations)
+                foreach (var param in oper.Value.Parameters)
                 {
-                    foreach (var param in oper.Value.Parameters)
-                    {
-                        var paramEnum = swaggerDoc.Components.Schemas.FirstOrDefault(x => x.Key == param.Name);
-                        if (paramEnum.Value != null)
-                        {
-                            param.Description += DescribeEnum(paramEnum.Value.Enum, paramEnum.Key);
-                        }
-                    }
+                    var paramEnum = swaggerDoc.Components.Schemas.FirstOrDefault(x => x.Key == param.Name);
+                    if (paramEnum.Value != null) param.Description += DescribeEnum(paramEnum.Value.Enum, paramEnum.Key);
                 }
-            }
         }
 
         private Type GetEnumTypeByName(string enumTypeName)
@@ -57,7 +46,7 @@ namespace Api.Filter
 
         private string DescribeEnum(IList<IOpenApiAny> enums, string proprtyTypeName)
         {
-            List<string> enumDescriptions = new List<string>();
+            var enumDescriptions = new List<string>();
             var enumType = GetEnumTypeByName(proprtyTypeName);
             if (enumType == null)
                 return null;
@@ -65,7 +54,7 @@ namespace Api.Filter
             foreach (var openApiAny in enums)
             {
                 var enumOption = (OpenApiInteger) openApiAny;
-                int enumInt = enumOption.Value;
+                var enumInt = enumOption.Value;
 
                 enumDescriptions.Add($"{enumInt} = {Enum.GetName(enumType, enumInt)}");
             }
@@ -73,5 +62,4 @@ namespace Api.Filter
             return string.Join(", ", enumDescriptions.ToArray());
         }
     }
-
 }

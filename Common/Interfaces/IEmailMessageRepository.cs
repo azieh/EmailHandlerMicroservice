@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Common.Enums;
 using Common.Models;
 
 namespace Common.Interfaces

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Common.Utilities
 {
-    class EmailValidatorAttribute : ValidationAttribute
+    internal class EmailValidatorAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

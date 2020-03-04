@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Data
 {
-    class DbContextFactory : IDesignTimeDbContextFactory<EmailHandlerContext>
+    internal class DbContextFactory : IDesignTimeDbContextFactory<EmailHandlerContext>
     {
         public EmailHandlerContext CreateDbContext(string[] args)
         {

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Common.Enums;
-using Common.Interfaces;
 
 namespace Common.Models
 {

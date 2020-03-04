@@ -14,7 +14,7 @@ namespace Api.ProjectSetup
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EmailHandlerMicroservice", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "EmailHandlerMicroservice", Version = "v1"});
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -26,11 +26,7 @@ namespace Api.ProjectSetup
         {
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EmailHandlerMicroservice V1");
-            });
-
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "EmailHandlerMicroservice V1"); });
         }
     }
 }

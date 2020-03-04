@@ -1,9 +1,9 @@
-﻿using Common.Enums;
-using Common.Interfaces;
-using Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Common.Enums;
+using Common.Interfaces;
+using Common.Models;
 
 namespace Services
 {
@@ -18,6 +18,7 @@ namespace Services
 
             _emailMessageRepositoryLazy = new Lazy<IEmailMessageRepository>(() => emailMessageRepository);
         }
+
         public async Task<Guid> AddToQueueAsync(NewEmailMessage emailMessage)
         {
             return await _emailMessageRepositoryLazy.Value.InsertMessageAsync(emailMessage);
@@ -25,12 +26,12 @@ namespace Services
 
         public async Task<List<EmailMessage>> GetAllAsync()
         {
-           return await _emailMessageRepositoryLazy.Value.GetAllAsync();
+            return await _emailMessageRepositoryLazy.Value.GetAllAsync();
         }
 
         public async Task<EmailMessage> GetByIdAsync(Guid id)
         {
-           return await _emailMessageRepositoryLazy.Value.GetByIdAsync(id);
+            return await _emailMessageRepositoryLazy.Value.GetByIdAsync(id);
         }
 
         public async Task<EmailStatus> GetStatusByIdAsync(Guid id)

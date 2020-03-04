@@ -16,11 +16,12 @@ namespace Data.Repository
 
         public EmailMessageRepository(EmailHandlerContext dbContext)
         {
-            if(dbContext is null)
+            if (dbContext is null)
                 throw new ArgumentNullException(nameof(dbContext));
 
             _dbContext = new Lazy<EmailHandlerContext>(() => dbContext);
         }
+
         public async Task<List<EmailMessage>> GetAllAsync()
         {
             return await _dbContext.Value.EmailMessages.Select(x => x.MapToDto()).ToListAsync();
@@ -42,7 +43,7 @@ namespace Data.Repository
 
         public void UpdateStatusToSendById(Guid id)
         {
-            _dbContext.Value.EmailMessages.Update(new Models.EmailMessage{Id = id, Status = (int)EmailStatus.Send});
+            _dbContext.Value.EmailMessages.Update(new Models.EmailMessage {Id = id, Status = (int) EmailStatus.Send});
         }
     }
 }

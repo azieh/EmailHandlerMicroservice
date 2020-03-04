@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Api.Controllers;
-using Common.Interfaces;
+﻿using System.Collections.Generic;
 using Common.Utilities;
-using Moq;
 using NUnit.Framework;
 
 namespace UnitTests
@@ -21,17 +17,10 @@ namespace UnitTests
             Assert.IsFalse(email.IsEmail());
         }
 
-        [TestCase((object)"")]
+        [TestCase("")]
         public void ObjectEmailIsNotValid(object email)
         {
             Assert.IsFalse(email.IsEmail());
-        }
-
-        [Test]
-        public void ObjectEmailListIsNotValid()
-        {
-            var list = new List<string> { "wasielewski.adrian@o2.pl", "wasielewski.adrian" };
-            Assert.IsFalse(list.IsEmailList());
         }
 
         [TestCase("wasielewski.adrian@o2.pl")]
@@ -40,16 +29,23 @@ namespace UnitTests
             Assert.IsTrue(email.IsEmail());
         }
 
-        [TestCase((object)"wasielewski.adrian@o2.pl")]
+        [TestCase("wasielewski.adrian@o2.pl")]
         public void ObjectEmailIsValid(object email)
         {
             Assert.IsTrue(email.IsEmail());
         }
 
         [Test]
+        public void ObjectEmailListIsNotValid()
+        {
+            var list = new List<string> {"wasielewski.adrian@o2.pl", "wasielewski.adrian"};
+            Assert.IsFalse(list.IsEmailList());
+        }
+
+        [Test]
         public void ObjectEmailListIsValid()
         {
-            var list = new List<string> { "wasielewski.adrian@o2.pl", "adrian.wasielewski@o2.pl" };
+            var list = new List<string> {"wasielewski.adrian@o2.pl", "adrian.wasielewski@o2.pl"};
             Assert.IsTrue(list.IsEmailList());
         }
     }

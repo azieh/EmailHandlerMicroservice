@@ -27,7 +27,7 @@ namespace Api
                     options.SerializerSettings.Converters.Add(new StringEnumConverter()));
             RegisterContainers.ConfigureServices(services);
             RegisterDbContainer.ConfigureServices(services, Configuration["Settings:DbLocation"]);
-            
+
             Swagger.ConfigureServices(services);
         }
 
@@ -35,19 +35,13 @@ namespace Api
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             Swagger.AppBuild(app);
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

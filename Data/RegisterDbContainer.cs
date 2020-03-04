@@ -17,6 +17,5 @@ namespace Data
         {
             services.AddScoped<IEmailMessageRepository, EmailMessageRepository>();
         }
-
     }
 }

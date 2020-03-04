@@ -8,26 +8,23 @@ namespace Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "EmailMessages",
-                columns: table => new
+                "EmailMessages",
+                table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     ToRecipients = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(),
                     Subject = table.Column<string>(nullable: true),
                     Body = table.Column<string>(nullable: true),
                     Sender = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmailMessages", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_EmailMessages", x => x.Id); });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EmailMessages");
+                "EmailMessages");
         }
     }
 }

@@ -12,8 +12,6 @@ namespace UnitTests
     [TestFixture]
     public class EmailServiceTest
     {
-        private IEmailService _sut;
-        private Mock<IEmailMessageRepository> _emailMessagesRepositoryMock;
         [SetUp]
         public void Setup()
         {
@@ -21,11 +19,8 @@ namespace UnitTests
             _sut = new EmailService(_emailMessagesRepositoryMock.Object);
         }
 
-        [Test]
-        public void EmailService_ShouldThrowExceptionIfEmailRepositoryIsNull()
-        {
-            Assert.Throws<ArgumentNullException>(() => new EmailService(null));
-        }
+        private IEmailService _sut;
+        private Mock<IEmailMessageRepository> _emailMessagesRepositoryMock;
 
         [Test]
         public async Task EmailService_ShouldReturnStatusNoneIfEmailNotExist()
@@ -40,11 +35,18 @@ namespace UnitTests
         [Test]
         public async Task EmailService_ShouldReturnStatusPending()
         {
-            _emailMessagesRepositoryMock.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(() => new EmailMessage(){Status = EmailStatus.Pending});
+            _emailMessagesRepositoryMock.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>()))
+                .ReturnsAsync(() => new EmailMessage {Status = EmailStatus.Pending});
 
             var result = await _sut.GetStatusByIdAsync(new Guid());
 
             Assert.AreEqual(EmailStatus.Pending, result);
+        }
+
+        [Test]
+        public void EmailService_ShouldThrowExceptionIfEmailRepositoryIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => new EmailService(null));
         }
     }
 }

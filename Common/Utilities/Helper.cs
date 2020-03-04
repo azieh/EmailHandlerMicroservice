@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 
 namespace Common.Utilities
 {
@@ -10,7 +11,7 @@ namespace Common.Utilities
         {
             try
             {
-                var addr = new System.Net.Mail.MailAddress(email);
+                var addr = new MailAddress(email);
                 return addr.Address == email;
             }
             catch
@@ -35,7 +36,7 @@ namespace Common.Utilities
         {
             try
             {
-                var list = (IList<string>)value;
+                var list = (IList<string>) value;
                 return !list.Any() || list.All(x => x.IsEmail());
             }
             catch
