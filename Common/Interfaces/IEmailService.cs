@@ -8,10 +8,10 @@ namespace Common.Interfaces
 {
     public interface IEmailService
     {
-        Task<Guid> AddToQueue(NewEmailMessage emailMessage);
-        Task<List<EmailMessage>> GetAll();
-        Task<EmailMessage> GetById(Guid id);
-        Task<EmailStatus> GetStatusById(Guid id);
-        Task SendEmail(Guid id);
+        Task<Guid> AddToQueueAsync(NewEmailMessage emailMessage);
+        Task<List<EmailMessage>> GetAllAsync();
+        Task<EmailMessage> GetByIdAsync(Guid id);
+        Task<EmailStatus> GetStatusByIdAsync(Guid id);
+        Task<List<Guid>> SendAllPendingEmailsAsync();
     }
 }

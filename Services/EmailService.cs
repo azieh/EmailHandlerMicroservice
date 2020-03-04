@@ -18,30 +18,30 @@ namespace Services
 
             _emailMessageRepositoryLazy = new Lazy<IEmailMessageRepository>(() => emailMessageRepository);
         }
-        public async Task<Guid> AddToQueue(NewEmailMessage emailMessage)
+        public async Task<Guid> AddToQueueAsync(NewEmailMessage emailMessage)
         {
-            return await _emailMessageRepositoryLazy.Value.InsertMessage(emailMessage);
+            return await _emailMessageRepositoryLazy.Value.InsertMessageAsync(emailMessage);
         }
 
-        public async Task<List<EmailMessage>> GetAll()
+        public async Task<List<EmailMessage>> GetAllAsync()
         {
-           return await _emailMessageRepositoryLazy.Value.GetAll();
+           return await _emailMessageRepositoryLazy.Value.GetAllAsync();
         }
 
-        public async Task<EmailMessage> GetById(Guid id)
+        public async Task<EmailMessage> GetByIdAsync(Guid id)
         {
-           return await _emailMessageRepositoryLazy.Value.GetById(id);
+           return await _emailMessageRepositoryLazy.Value.GetByIdAsync(id);
         }
 
-        public async Task<EmailStatus> GetStatusById(Guid id)
+        public async Task<EmailStatus> GetStatusByIdAsync(Guid id)
         {
-            var mailDetails = await _emailMessageRepositoryLazy.Value.GetById(id);
+            var mailDetails = await _emailMessageRepositoryLazy.Value.GetByIdAsync(id);
             if (mailDetails is null)
                 return EmailStatus.None;
             return mailDetails.Status;
         }
 
-        public Task SendEmail(Guid id)
+        public Task<List<Guid>> SendAllPendingEmailsAsync()
         {
             throw new NotImplementedException();
         }

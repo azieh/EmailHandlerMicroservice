@@ -21,28 +21,23 @@ namespace Data.Repository
 
             _dbContext = new Lazy<EmailHandlerContext>(() => dbContext);
         }
-        public async Task<List<EmailMessage>> GetAll()
+        public async Task<List<EmailMessage>> GetAllAsync()
         {
             return await _dbContext.Value.EmailMessages.Select(x => x.MapToDto()).ToListAsync();
         }
 
-        public async Task<EmailMessage> GetById(Guid id)
+        public async Task<EmailMessage> GetByIdAsync(Guid id)
         {
             var entity = await _dbContext.Value.EmailMessages.FirstOrDefaultAsync(x => x.Id == id);
             return entity.MapToDto();
         }
 
-        public async Task<Guid> InsertMessage(NewEmailMessage newEmailMessage)
+        public async Task<Guid> InsertMessageAsync(NewEmailMessage newEmailMessage)
         {
             var entity = newEmailMessage.MapFromNewDto();
             _dbContext.Value.EmailMessages.Add(entity);
             await _dbContext.Value.SaveChangesAsync();
             return entity.Id;
-        }
-
-        public Task UpdateMessage()
-        {
-            throw new NotImplementedException();
         }
 
         public void UpdateStatusToSendById(Guid id)

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Common.Enums;
 using Common.Interfaces;
+using Common.Models;
 using Moq;
 using NUnit.Framework;
 using Services;
@@ -29,12 +30,21 @@ namespace UnitTests
         [Test]
         public async Task EmailService_ShouldReturnStatusNoneIfEmailNotExist()
         {
-            _emailMessagesRepositoryMock.Setup(_ => _.GetById(It.IsAny<Guid>())).ReturnsAsync(() => null);
+            _emailMessagesRepositoryMock.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(() => null);
 
-            var result = await _sut.GetStatusById(new Guid());
+            var result = await _sut.GetStatusByIdAsync(new Guid());
 
             Assert.AreEqual(EmailStatus.None, result);
         }
 
+        [Test]
+        public async Task EmailService_ShouldReturnStatusPending()
+        {
+            _emailMessagesRepositoryMock.Setup(_ => _.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(() => new EmailMessage(){Status = EmailStatus.Pending});
+
+            var result = await _sut.GetStatusByIdAsync(new Guid());
+
+            Assert.AreEqual(EmailStatus.Pending, result);
+        }
     }
 }

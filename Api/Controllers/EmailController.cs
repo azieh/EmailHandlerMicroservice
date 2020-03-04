@@ -23,12 +23,12 @@ namespace Api.Controllers
             _emailServiceLazy = new Lazy<IEmailService>(() => emailService);
         }
 
-        [HttpPost]
-        [Route(nameof(PostMessage))]
+        [HttpPut]
+        [Route(nameof(PutMessage))]
         [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> PostMessage([FromBody]NewEmailMessage emailMessage)
+        public async Task<IActionResult> PutMessage([FromBody]NewEmailMessage emailMessage)
         {
-            var emailId = await _emailServiceLazy.Value.AddToQueue(emailMessage);
+            var emailId = await _emailServiceLazy.Value.AddToQueueAsync(emailMessage);
             return Ok(emailId);
         }
 
@@ -41,11 +41,23 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Route(nameof(GetMessageDetails))]
+        [ProducesResponseType(typeof(EmailStatus), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetMessageDetails([FromQuery]Guid id)
+        {
+            var status = await _emailServiceLazy.Value.GetByIdAsync(id);
+            if (status is null)
+                return NotFound();
+
+            return Ok(status);
+        }
+
+        [HttpGet]
         [Route(nameof(GetMessageStatus))]
         [ProducesResponseType(typeof(EmailStatus) ,(int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetMessageStatus([FromQuery]Guid id)
         {
-            var status = await _emailServiceLazy.Value.GetStatusById(id);
+            var status = await _emailServiceLazy.Value.GetStatusByIdAsync(id);
             if (status == EmailStatus.None)
                 return NotFound();
 
@@ -57,7 +69,16 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(List<EmailMessage>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAllMessages()
         {
-            var allEmails = await _emailServiceLazy.Value.GetAll();
+            var allEmails = await _emailServiceLazy.Value.GetAllAsync();
+            return Ok(allEmails);
+        }
+
+        [HttpPost]
+        [Route(nameof(GetAllMessages))]
+        [ProducesResponseType(typeof(List<Guid>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> SendAllPendingEmails()
+        {
+            var allEmails = await _emailServiceLazy.Value.SendAllPendingEmailsAsync();
             return Ok(allEmails);
         }
     }
