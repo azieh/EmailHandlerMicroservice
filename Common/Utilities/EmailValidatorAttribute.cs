@@ -6,7 +6,7 @@ namespace Common.Utilities
     {
         public override bool IsValid(object value)
         {
-            return value.IsEmail();
+            return string.IsNullOrEmpty(value.ToString()) || value.IsEmail();
         }
     }
 }

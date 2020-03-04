@@ -14,9 +14,11 @@ namespace Data.Extensions
                 Body = from.Body,
                 Id = from.Id,
                 Sender = from.Sender,
-                Status = (EmailStatus) from.Status,
+                Status = (EmailStatus)from.Status,
                 Subject = from.Subject,
-                ToRecipients = from.ToRecipients.Split(";").ToList()
+                ToRecipients = from.ToRecipients.Split(";").ToList(),
+                To = from.To,
+                Priority = from.Priority
             };
         }
 
@@ -29,7 +31,9 @@ namespace Data.Extensions
                 Subject = from.Subject,
                 Sender = from.Sender,
                 Status = (int) EmailStatus.Pending,
-                ToRecipients = string.Join(";", from.ToRecipients)
+                ToRecipients = string.Join(";", from.ToRecipients),
+                To = from.To,
+                Priority = from.Priority
             };
         }
     }

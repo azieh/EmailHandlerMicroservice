@@ -10,6 +10,7 @@ namespace Common.Interfaces
         Task<Guid> InsertMessageAsync(NewEmailMessage emailMessage);
         Task<List<EmailMessage>> GetAllAsync();
         Task<EmailMessage> GetByIdAsync(Guid id);
+        Task<List<EmailMessage>> GetAllPendingAsync();
         void UpdateStatusToSendById(Guid id);
     }
 }

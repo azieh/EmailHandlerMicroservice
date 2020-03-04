@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    /// <summary>
+    ///     Actions available for EmailHandler
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class EmailController : ControllerBase
@@ -23,8 +26,12 @@ namespace Api.Controllers
             _emailServiceLazy = new Lazy<IEmailService>(() => emailService);
         }
 
+        /// <summary>
+        ///     Add email to queue
+        /// </summary>
+        /// <returns><see cref="Guid"/>Id of created email</returns>
         [HttpPut]
-        [Route(nameof(PutMessage))]
+        [Route("Add")]
         [ProducesResponseType(typeof(Guid), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> PutMessage([FromBody] NewEmailMessage emailMessage)
         {
@@ -32,28 +39,30 @@ namespace Api.Controllers
             return Ok(emailId);
         }
 
-        [HttpPost]
-        [Route(nameof(UploadAttachment))]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        public async Task<IActionResult> UploadAttachment([FromQuery] Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        ///     Provides detailed description about email
+        /// </summary>
+        /// <param name="id">Email Id</param>
+        /// <returns><see cref="EmailMessage"/></returns>
         [HttpGet]
-        [Route(nameof(GetMessageDetails))]
-        [ProducesResponseType(typeof(EmailStatus), (int) HttpStatusCode.OK)]
+        [Route("Details")]
+        [ProducesResponseType(typeof(EmailMessage), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetMessageDetails([FromQuery] Guid id)
         {
-            var status = await _emailServiceLazy.Value.GetByIdAsync(id);
-            if (status is null)
+            var email = await _emailServiceLazy.Value.GetByIdAsync(id);
+            if (email is null)
                 return NotFound();
 
-            return Ok(status);
+            return Ok(email);
         }
 
+        /// <summary>
+        ///     Provides status of email
+        /// </summary>
+        /// <param name="id">Email Id</param>
+        /// <returns><see cref="EmailStatus"/></returns>
         [HttpGet]
-        [Route(nameof(GetMessageStatus))]
+        [Route("Status")]
         [ProducesResponseType(typeof(EmailStatus), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetMessageStatus([FromQuery] Guid id)
         {
@@ -64,8 +73,12 @@ namespace Api.Controllers
             return Ok(status);
         }
 
+        /// <summary>
+        ///     Provides detailed description about all email in database
+        /// </summary>
+        /// <returns>Return list of all emails</returns>
         [HttpGet]
-        [Route(nameof(GetAllMessages))]
+        [Route("All")]
         [ProducesResponseType(typeof(List<EmailMessage>), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> GetAllMessages()
         {
@@ -73,8 +86,12 @@ namespace Api.Controllers
             return Ok(allEmails);
         }
 
+        /// <summary>
+        ///     Send all emails in PENDING status
+        /// </summary>
+        /// <returns>Return list of all sended emails</returns>
         [HttpPost]
-        [Route(nameof(GetAllMessages))]
+        [Route("Send")]
         [ProducesResponseType(typeof(List<Guid>), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> SendAllPendingEmails()
         {

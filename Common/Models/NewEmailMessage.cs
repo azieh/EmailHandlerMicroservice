@@ -6,7 +6,9 @@ namespace Common.Models
 {
     public class NewEmailMessage
     {
-        [Required] [EmailValidator] public string Sender { get; set; }
+        [EmailValidator] public string Sender { get; set; }
+
+        [Required] [EmailValidator] public string To { get; set; }
 
         [EmailListValidator] public IEnumerable<string> ToRecipients { get; set; }
 
@@ -14,5 +16,7 @@ namespace Common.Models
         public string Subject { get; set; }
 
         public string Body { get; set; }
+
+        public int Priority { get; set; }
     }
 }

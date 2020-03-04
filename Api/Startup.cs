@@ -25,6 +25,7 @@ namespace Api
                 .AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.Converters.Add(new StringEnumConverter()));
+            services.AddSingleton(Configuration);
             RegisterContainers.ConfigureServices(services);
             RegisterDbContainer.ConfigureServices(services, Configuration["Settings:DbLocation"]);
 

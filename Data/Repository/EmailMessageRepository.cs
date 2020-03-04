@@ -24,13 +24,28 @@ namespace Data.Repository
 
         public async Task<List<EmailMessage>> GetAllAsync()
         {
-            return await _dbContext.Value.EmailMessages.Select(x => x.MapToDto()).ToListAsync();
+            return await _dbContext.Value.EmailMessages
+                .AsNoTracking()
+                .Select(x => x.MapToDto())
+                .ToListAsync();
         }
 
         public async Task<EmailMessage> GetByIdAsync(Guid id)
         {
-            var entity = await _dbContext.Value.EmailMessages.FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await _dbContext.Value.EmailMessages
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
             return entity.MapToDto();
+        }
+
+        public async Task<List<EmailMessage>> GetAllPendingAsync()
+        {
+            return await _dbContext.Value.EmailMessages
+                .Where(x => x.Status == (int)EmailStatus.Pending)
+                .OrderByDescending(x => x.Priority)
+                .Select(x => x.MapToDto())
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<Guid> InsertMessageAsync(NewEmailMessage newEmailMessage)
@@ -43,7 +58,12 @@ namespace Data.Repository
 
         public void UpdateStatusToSendById(Guid id)
         {
-            _dbContext.Value.EmailMessages.Update(new Models.EmailMessage {Id = id, Status = (int) EmailStatus.Send});
+            _dbContext.Value.EmailMessages
+                .Update(new Models.EmailMessage
+                {
+                    Id = id, 
+                    Status = (int) EmailStatus.Send
+                });
         }
     }
 }
