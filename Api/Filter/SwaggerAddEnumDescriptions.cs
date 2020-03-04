@@ -7,6 +7,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Api.Filter
 {
+    //https://stackoverflow.com/questions/36452468/swagger-ui-web-api-documentation-present-enums-as-strings
     public class SwaggerAddEnumDescriptions : IDocumentFilter
     {
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
@@ -61,11 +62,12 @@ namespace Api.Filter
             if (enumType == null)
                 return null;
 
-            foreach (OpenApiInteger enumOption in enums)
+            foreach (var openApiAny in enums)
             {
+                var enumOption = (OpenApiInteger) openApiAny;
                 int enumInt = enumOption.Value;
 
-                enumDescriptions.Add(string.Format("{0} = {1}", enumInt, Enum.GetName(enumType, enumInt)));
+                enumDescriptions.Add($"{enumInt} = {Enum.GetName(enumType, enumInt)}");
             }
 
             return string.Join(", ", enumDescriptions.ToArray());

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Common.Interfaces;
+using Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,10 +7,16 @@ namespace Data
 {
     public static class RegisterDbContainer
     {
-        public static void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services, string dbLocation)
         {
             services.AddDbContext<EmailHandlerContext>(options =>
-                options.UseSqlite("Filename=./emailHandler.db"));
+                options.UseSqlite(dbLocation));
         }
+
+        public static void Register(IServiceCollection services)
+        {
+            services.AddScoped<IEmailMessageRepository, EmailMessageRepository>();
+        }
+
     }
 }

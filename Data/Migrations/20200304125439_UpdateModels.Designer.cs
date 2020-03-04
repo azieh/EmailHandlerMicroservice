@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(EmailHandlerContext))]
-    [Migration("20200303161934_InitMigration")]
-    partial class InitMigration
+    [Migration("20200304125439_UpdateModels")]
+    partial class UpdateModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,7 @@ namespace Data.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("SenderUserId")
+                    b.Property<string>("Sender")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
@@ -39,35 +39,9 @@ namespace Data.Migrations
                     b.Property<string>("ToRecipients")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SenderUserId");
-
                     b.ToTable("EmailMessages");
-                });
-
-            modelBuilder.Entity("Data.Models.User", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Data.Models.EmailMessage", b =>
-                {
-                    b.HasOne("Data.Models.User", "Sender")
-                        .WithMany("EmailMessages")
-                        .HasForeignKey("SenderUserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,7 +12,6 @@ namespace Data.Models
         public string Subject { get; set; }
         public string Body { get; set; }
 
-        public int UserId { get; set; }
-        public User Sender { get; set; }
+        public string Sender { get; set; }
     }
 }

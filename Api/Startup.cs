@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Api.ProjectSetup;
 using Data;
 using Microsoft.AspNetCore.Builder;
@@ -26,8 +25,9 @@ namespace Api
                 .AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.Converters.Add(new StringEnumConverter()));
-            RegisterDbContainer.ConfigureServices(services);
             RegisterContainers.ConfigureServices(services);
+            RegisterDbContainer.ConfigureServices(services, Configuration["Settings:DbLocation"]);
+            
             Swagger.ConfigureServices(services);
         }
 

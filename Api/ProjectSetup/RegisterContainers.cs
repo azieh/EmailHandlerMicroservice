@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Common.Interfaces;
 using Data;
+using Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.ProjectSetup
@@ -11,6 +9,7 @@ namespace Api.ProjectSetup
     {
         public static void ConfigureServices(IServiceCollection services)
         {
+            RegisterDbContainer.Register(services);
         }
     }
 }
