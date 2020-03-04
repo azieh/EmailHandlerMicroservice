@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Api.Models;
 using Common.Enums;
 using Common.Interfaces;
+using Common.Models;
 
 namespace Data.Repository
 {

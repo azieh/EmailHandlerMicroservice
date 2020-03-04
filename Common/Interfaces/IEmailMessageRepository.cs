@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Api.Models;
 using Common.Enums;
+using Common.Models;
 
 namespace Common.Interfaces
 {
